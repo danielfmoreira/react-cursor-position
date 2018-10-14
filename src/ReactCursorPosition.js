@@ -221,10 +221,9 @@ export default class extends React.Component {
         }
     }
 
-    componentWillReceiveProps({ isEnabled: willBeEnabled }) {
+    componentWillReceiveProps({ isEnabled: willBeEnabled, pressDurationInMs: newPressDurationInMs}) {
         const { isEnabled } = this.props;
         const isEnabledWillChange = isEnabled !== willBeEnabled;
-
         if (!isEnabledWillChange) {
             return;
         }
@@ -233,6 +232,10 @@ export default class extends React.Component {
             this.enable();
         } else {
             this.disable();
+        }
+        if (newPressDurationInMs) {
+            this.props.pressDurationInMs = newPressDurationInMs;
+            this.setTouchActivationStrategy(this.props.activationInteractionTouch);
         }
     }
 
